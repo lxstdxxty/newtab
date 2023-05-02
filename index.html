@@ -224,7 +224,7 @@
     searchInput.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
         event.preventDefault();
-        const searchQuery = searchInput.textContent;
+        const searchQuery = searchInput.value;
         const isLink = /^https?:\/\//.test(searchQuery);
 
         const searchUrl = isLink
