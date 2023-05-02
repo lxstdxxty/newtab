@@ -1,279 +1,245 @@
-<!DOCTYPE html>
+>
 <html>
-  <head>
-    <title>user@home > newtab</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.png">
-    <style>
-      html {
-        align-items: center;
-        background-color: #11111b;
-        color: #bac2de;
-        display: flex;
-        font: 22px/1 "Inconsolata", monospace;
-        height: 100%;
-        justify-content: center;
-        user-select: none;
+
+<head>
+  <title>user@home > newtab</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
+  <style>
+    html {
+      background-color: #11111b;
+      color: #bac2de;
+      font: 22px/1 "Inconsolata", monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      user-select: none;
+    }
+
+    .terminal-window {
+      background-color: #1e1e2e;
+      border-radius: 6px;
+      box-shadow: 1px 1px 6px rgba(30, 30, 46, 0.53);
+      padding: 2em;
+      min-width: 664px;
+      display: flex;
+      flex-direction: column;
+      animation: tw-animation .5s;
+    }
+
+    .background {
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200vh;
+      background: transparent url("http://assets.iceable.com/img/noise-transparent.png") repeat;
+      animation: bg-animation .2s infinite;
+      opacity: .6;
+      z-index: -1;
+    }
+
+    .cmd-line,
+    .search-input {
+      color: #F9E2AF;
+      outline: none;
+      border: none;
+    }
+
+    .search-input {
+      font: 22px/1 "Inconsolata", monospace;
+      display: inline-block;
+      background: none;
+      width: 77%;
+    }
+
+    .search-input::selection {
+      background-color: #3b3c4f;
+      color: #a99e90;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    p span {
+      color: #cdd6f4;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus,
+    a:hover {
+      font-weight: bold;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      column-gap: 2em;
+      padding-bottom: 1em;
+    }
+
+    ul li:first-child {
+      font-weight: bold;
+      margin-top: 1em;
+    }
+
+    ul:nth-child(5n + 1) li:first-child {
+      color: #f38ba8;
+    }
+
+    ul:nth-child(5n + 2) li:first-child {
+      color: #fab387;
+    }
+
+    ul:nth-child(5n + 3) li:first-child {
+      color: #f9e2af;
+    }
+
+    ul:nth-child(5n + 4) li:first-child {
+      color: #a6e3a1;
+    }
+
+    ul:nth-child(5n + 5) li:first-child {
+      color: #cba6f7;
+    }
+
+    @keyframes tw-animation {
+      from {
+        opacity: 0;
       }
 
-      .terminal-window {
-        background-color: #1e1e2e;
-        border-radius: 6px;
-        box-shadow: 1px 1px 6px #1e1e2e87;
-        color: #bac2de;
-        display: flex;
-        animation: tw-animation .5s;
-        flex-direction: column;
-        padding: 2em;
-        min-width: 664px;
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes bg-animation {
+      0% {
+        transform: translate(0, 0);
       }
 
-      .background {
-        position: fixed;
-        top: -50%;
-        left: -50%;
-        right: -50%;
-        bottom: -50%;
-        width: 200%;
-        height: 200vh;
-        background: transparent url("http://assets.iceable.com/img/noise-transparent.png") repeat 0 0;
-        background-repeat: repeat;
-        animation: bg-animation .2s infinite;
-        opacity: .6;
-        visibility: visible;
-        pointer-events: none;
-        user-select: none;
-        z-index: -1;
+      10% {
+        transform: translate(-5%, -5%);
       }
 
-      .cmd-line {
-        color: #F9E2AF;
-        outline: none;
-        border: none;
+      20% {
+        transform: translate(-10%, 5%);
       }
 
-      .search-input {
-        color: #F9E2AF;
-        outline: none;
-        border: none;
-        display: inline-block;
-        width: 77%;
+      30% {
+        transform: translate(5%, -10%);
       }
 
-      .search-input::selection {
-        background-color: #3b3c4f;
-        color: #958c84;
+      40% {
+        transform: translate(-5%, 15%);
       }
 
-      p {
-        margin: 0;
+      50% {
+        transform: translate(-10%, 5%);
       }
 
-      p span {
-        color: #cdd6f4;
+      60% {
+        transform: translate(15%, 0);
       }
 
-      a {
-        color: inherit;
-        text-decoration: none;
+      70% {
+        transform: translate(0, 10%);
       }
 
-      a:focus,
-      a:hover {
-        font-weight: bold;
+      80% {
+        transform: translate(-15%, 0);
       }
 
-      ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
+      90% {
+        transform: translate(10%, 5%);
       }
 
-      nav {
-        column-gap: 2em;
-        display: grid;
-        grid-template-columns: auto auto auto auto;
-        padding: 0 0 1em;
+      100% {
+        transform: translate(5%, 0);
       }
+    }
+  </style>
+</head>
 
-      ul:nth-child(5n + 1) li:first-child {
-        color: #f38ba8;
+<body>
+  <div class="background"></div>
+  <div class="terminal-window">
+    <p>
+      <span>user@home &gt; </span>
+      <span class="cmd-line">newtab</span>
+    </p>
+    <nav class="content">
+      <ul>
+        <li>general</li>
+        <li><a href="https://example.com">website</a></li>
+        <li><a href="https://example.com">news</a></li>
+        <li><a href="https://example.com">ff send</a></li>
+      </ul>
+
+      <ul>
+        <li>education</li>
+        <li><a href="https://example.com">mdn</a></li>
+        <li><a href="https://example.com">stack overflow</a></li>
+      </ul>
+
+      <ul>
+        <li>home</li>
+        <li><a href="https://example.com">rent portal</a></li>
+        <li><a href="https://example.com">shopping list</a></li>
+        <li><a href="https://example.com">goals</a></li>
+      </ul>
+
+      <ul>
+        <li>misc.</li>
+        <li><a href="https://example.com">moosic</a></li>
+        <li><a href="https://example.com">deluge web</a></li>
+      </ul>
+
+      <ul>
+        <li>misc.</li>
+        <li><a href="https://example.com">moosic</a></li>
+        <li><a href="https://example.com">deluge web</a></li>
+      </ul>
+    </nav>
+    <p>
+      <span>user@home &gt; </span>
+      <input class="search-input" autocomplete="off" autofocus="true"></input>
+    </p>
+  </div>
+
+  <script>
+    const searchInput = document.querySelector(".search-input");
+
+    searchInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        const searchQuery = searchInput.textContent;
+        const isLink = /^https?:\/\//.test(searchQuery);
+
+        const searchUrl = isLink
+          ? searchQuery
+          : (localStorage.getItem("searchUrl") || "https://www.google.com/search?q=%s").replace("%s", encodeURIComponent(searchQuery));
+
+        window.location.href = searchUrl;
       }
+    });
 
-      ul:nth-child(5n + 2) li:first-child {
-        color: #fab387;
-      }
+    const navContent = localStorage.getItem("navContent");
+    if (navContent) {
+      document.querySelector(".content").innerHTML = navContent;
+    }
+  </script>
+</body>
 
-      ul:nth-child(5n + 3) li:first-child {
-        color: #f9e2af;
-      }
-
-      ul:nth-child(5n + 4) li:first-child {
-        color: #a6e3a1;
-      }
-
-      ul:nth-child(5n + 5) li:first-child {
-        color: #cba6f7;
-      }
-
-      li:first-child {
-        font-weight: bold;
-        margin: 1em 0 0;
-      }
-
-      @keyframes blink {
-
-        0%,
-        49% {
-          opacity: 0;
-        }
-
-        50% {
-          opacity: 1;
-        }
-      }
-
-      @keyframes bg-animation {
-        0% {
-          transform: translate(0, 0)
-        }
-
-        10% {
-          transform: translate(-5%, -5%)
-        }
-
-        20% {
-          transform: translate(-10%, 5%)
-        }
-
-        30% {
-          transform: translate(5%, -10%)
-        }
-
-        40% {
-          transform: translate(-5%, 15%)
-        }
-
-        50% {
-          transform: translate(-10%, 5%)
-        }
-
-        60% {
-          transform: translate(15%, 0)
-        }
-
-        70% {
-          transform: translate(0, 10%)
-        }
-
-        80% {
-          transform: translate(-15%, 0)
-        }
-
-        90% {
-          transform: translate(10%, 5%)
-        }
-
-        100% {
-          transform: translate(5%, 0)
-        }
-      }
-
-      @keyframes tw-animation {
-        from {
-          opacity: 0;
-        }
-
-        to {
-          opacity: 1;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="background"></div>
-    <div class="terminal-window">
-      <p>
-        <span>user@home &gt; </span>
-        <span class="cmd-line">newtab</span>
-      </p>
-      <nav class="content">
-        <ul>
-          <li>general</li>
-          <li>
-            <a href="https://example.com">website</a>
-          </li>
-          <li>
-            <a href="https://example.com">news</a>
-          </li>
-          <li>
-            <a href="https://example.com">ff send</a>
-          </li>
-        </ul>
-        <ul>
-          <li>education</li>
-          <li>
-            <a href="https://example.com">mdn</a>
-          </li>
-          <li>
-            <a href="https://example.com">stack overflow</a>
-          </li>
-        </ul>
-        <ul>
-          <li>home</li>
-          <li>
-            <a href="https://example.com">rent portal</a>
-          </li>
-          <li>
-            <a href="https://example.com">shopping list</a>
-          </li>
-          <li>
-            <a href="https://example.com">goals</a>
-          </li>
-        </ul>
-        <ul>
-          <li>misc.</li>
-          <li>
-            <a href="https://example.com">moosic</a>
-          </li>
-          <li>
-            <a href="https://example.com">deluge web</a>
-          </li>
-        </ul>
-        <ul>
-          <li>misc.</li>
-          <li>
-            <a href="https://example.com">moosic</a>
-          </li>
-          <li>
-            <a href="https://example.com">deluge web</a>
-          </li>
-        </ul>
-      </nav>
-      <p>
-        <span>user@home &gt; </span>
-        <span contenteditable="true" class="search-input" spellcheck="false" required autofocus></span>
-        <script>
-          const searchInput = document.querySelector(".search-input");
-          searchInput.addEventListener("keydown", function(event) {
-            if (event.keyCode === 13) {
-              event.preventDefault();
-              const searchQuery = searchInput.textContent;
-              const isLink = /^https?:\/\//.test(searchQuery);
-              if (isLink) {
-                window.location.href = searchQuery;
-              } else {
-                const searchUrl = "https://www.google.com/search?q=" + encodeURIComponent(searchQuery);
-                window.location.href = searchUrl;
-              }
-            }
-          });
-          const nav = document.querySelector(".content");
-          const navContent = localStorage.getItem("navContent");
-          if (navContent) {
-            nav.innerHTML = navContent;
-          }
-        </script>
-      </p>
-    </div>
-  </body>
 </html>
